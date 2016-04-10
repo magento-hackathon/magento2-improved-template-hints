@@ -9,8 +9,8 @@ class Head extends \Magento\Framework\View\Element\Template {
 
         /** @var \Magento\Framework\View\Page\Config $page */
         $page = $om->get('Magento\Framework\View\Page\Config');
-        $page->addPageAsset('MagentoHackathon_ImprovedTemplateHints::opentip.css');
-        $page->addPageAsset('MagentoHackathon_ImprovedTemplateHints::aoe_templatehints.css');
+        $page->addPageAsset('MagentoHackathon_ImprovedTemplateHints::css/opentip.css');
+        $page->addPageAsset('MagentoHackathon_ImprovedTemplateHints::css/templatehints.css');
     }
 
 }
