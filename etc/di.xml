@@ -2,4 +2,8 @@
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:ObjectManager/etc/config.xsd">
     <preference for="Magento\Developer\Model\TemplateEngine\Decorator\DebugHints"
                 type="MagentoHackathon\ImprovedTemplateHints\Model\TemplateEngine\Decorator\DebugHints" />
+
+    <preference for="Magento\Developer\Model\TemplateEngine\Decorator\DebugHintsFactory"
+                type="MagentoHackathon\ImprovedTemplateHints\Model\TemplateEngine\Decorator\DebugHintsFactory" />
+
 </config>
