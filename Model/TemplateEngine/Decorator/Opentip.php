@@ -63,16 +63,14 @@ class Opentip extends \MagentoHackathon\ImprovedTemplateHints\Model\TemplateEngi
 
         $this->_hintId++;
         $wrappedHtml .= sprintf(
-            '<div id="tpl-hint-%1$s" class="%2$s">
+            '<div id="tpl-hint-%1$s" class="%2$s" data-mage-init=\'{"templateHints": {}}\' data-ot="%5$s" data-ot-title="%4$s">
                 %3$s
-                <div id="tpl-hint-%1$s-title" style="display: none;">%4$s</div>
-                <div id="tpl-hint-%1$s-infobox" style="display: none;">%5$s</div>
             </div>',
             $this->_hintId,
             $this->getHintClass() . ' ' . $blockInfo['cache-status'],
             $result,
-            $this->renderTitle($blockInfo),
-            $this->renderBox($blockInfo, $path)
+            htmlentities($this->renderTitle($blockInfo)),
+            htmlentities($this->renderBox($blockInfo, $path))
         );
         return $wrappedHtml;
     }
