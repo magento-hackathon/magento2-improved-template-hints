@@ -9,6 +9,7 @@ xsi:noNamespaceSchemaLocation='../../../../../../../lib/internal/Magento/Framewo
                 class='MagentoHackathon\ImprovedTemplateHints\Block\Head'
                 name='magentohackathon_imporvedtemplatehints_block_head'
                 ifconfig='dev/debug/template_hints_storefront'
+                template='init-tooltips.phtml'
         />
     </referenceContainer>
 </body>

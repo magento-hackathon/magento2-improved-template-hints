@@ -63,7 +63,7 @@ class Opentip extends \MagentoHackathon\ImprovedTemplateHints\Model\TemplateEngi
 
         $this->_hintId++;
         $wrappedHtml .= sprintf(
-            '<div id="tpl-hint-%1$s" class="%2$s" data-mage-init=\'{"templateHints": {}}\' data-ot="%5$s" data-ot-title="%4$s">
+            '<div id="tpl-hint-%1$s" class="%2$s" data-ot-show-on="click" data-ot-fixed="true" data-ot-hide-trigger="closeButton" data-ot-tip-joint="top" data-ot-group="hints" data-ot-target="true" data-ot="%5$s" data-ot-title="%4$s" >
                 %3$s
             </div>',
             $this->_hintId,
