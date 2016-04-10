@@ -19,4 +19,10 @@ Magento 2 module for improved template hints. Based on the Magento 1 module. [Ao
 composer require magento-hackaton/magento2-improved-template-hints:dev-master
 ```
 
+## ToDo
+
+* Add a system configuration for changing the display style of the template hints.
+* Implement more decorators.
+* Implement a developer toolbar to display more information.
+
 Original Hackathon Issue Discussion: [magento-hackathon/pre-imagine-2016/issues/31](https://github.com/magento-hackathon/pre-imagine-2016/issues/31)
