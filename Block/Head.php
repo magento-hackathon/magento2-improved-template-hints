@@ -12,5 +12,4 @@ class Head extends \Magento\Framework\View\Element\Template {
         $page->addPageAsset('MagentoHackathon_ImprovedTemplateHints::css/opentip.css');
         $page->addPageAsset('MagentoHackathon_ImprovedTemplateHints::css/templatehints.css');
     }
-
 }
