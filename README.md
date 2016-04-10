@@ -21,6 +21,7 @@ composer require magento-hackaton/magento2-improved-template-hints:dev-master
 
 ## ToDo
 
+* Enable template path hints for admin.
 * Add a system configuration for changing the display style of the template hints.
 * Implement more decorators.
 * Implement a developer toolbar to display more information.
