@@ -124,7 +124,7 @@ class Opentip extends \MagentoHackathon\ImprovedTemplateHints\Model\TemplateEngi
 //        $wrappedHtml .= '<script type="text/javascript">' . $helper->getSkinFileContent('aoe_templatehints/js/opentip.min.js') . '</script>';
 //        $wrappedHtml .= '<script type="text/javascript">' . $helper->getSkinFileContent('aoe_templatehints/js/excanvas.js') . '</script>';
 //        $wrappedHtml .= '<script type="text/javascript">' . $helper->getSkinFileContent('aoe_templatehints/js/aoe_templatehints.js') . '</script>';
-//        $wrappedHtml .= '<style type="text/css">' . $helper->getSkinFileContent('aoe_templatehints/css/aoe_templatehints.css') . '</style>';
+//        $wrappedHtml .= '<style type="text/css">' . $helper->getSkinFileContent('aoe_templatehints/css/templatehints.css') . '</style>';
 //        $wrappedHtml .= '<style type="text/css">' . $helper->getSkinFileContent('aoe_templatehints/css/opentip.css') . '</style>';
         return $wrappedHtml;
     }
