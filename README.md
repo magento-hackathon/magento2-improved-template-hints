@@ -4,18 +4,18 @@ Magento 2 module for improved template hints. Based on the Magento 1 module. [Ao
 
 ## Installation
 
-1. Configure the composer repository.
+* Configure the composer repository.
 ```
 composer config repositories.magentohackathon-module-improvedtemplatehints git git@github.com:magento-hackathon/magento2-improved-template-hints.git
 ```
 
-2. Require the module & install.
+* Require the module & install.
 
 ```
 composer require magento-hackaton/magento2-improved-template-hints:dev-master
 ```
 
-3. Enable module, run the module setup and flush cache
+* Enable module, run the module setup and flush cache
 ```
 bin/magento module:enable --clear-static-content MagentoHackathon_ImprovedTemplateHints
 bin/magento setup:upgrade 
