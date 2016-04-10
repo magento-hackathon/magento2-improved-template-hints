@@ -1,0 +1,15 @@
+<?xml version='1.0'?>
+
+<page
+xmlns:xsi='http://www.w3.org/2001/XMLSchema-instance'
+xsi:noNamespaceSchemaLocation='../../../../../../../lib/internal/Magento/Framework/View/Layout/etc/page_configuration.xsd'>
+<body>
+    <referenceContainer name='root'>
+        <block
+                class='MagentoHackathon\ImprovedTemplateHints\Block\Head'
+                name='magentohackathon_imporvedtemplatehints_block_head'
+                ifconfig='dev/debug/template_hints_storefront'
+        />
+    </referenceContainer>
+</body>
+</page>

@@ -33,10 +33,16 @@ class Opentip extends \MagentoHackathon\ImprovedTemplateHints\Model\TemplateEngi
      * @param \Magento\Framework\View\TemplateEngineInterface $subject
      * @param bool $showBlockHints Whether to include block into the debugging information or not
      */
-    public function __construct(\Magento\Framework\View\TemplateEngineInterface $subject, $showBlockHints)
+    public function __construct(
+        \Magento\Store\Model\StoreManagerInterface $storeManager,
+        \Magento\Framework\View\TemplateEngineInterface $subject,
+        \Magento\Framework\App\Config\ScopeConfigInterface $scopeConfig,
+        \MagentoHackathon\ImprovedTemplateHints\Helper\ClassInfo $classInfoHelper,
+        $showBlockHints)
     {
         $this->_subject = $subject;
         $this->_showBlockHints = $showBlockHints;
+        parent::__construct($storeManager, $subject, $scopeConfig, $classInfoHelper, $showBlockHints);
     }
 
     public function render(\Magento\Framework\View\Element\BlockInterface $block, $templateFile, array $dictionary = [])
