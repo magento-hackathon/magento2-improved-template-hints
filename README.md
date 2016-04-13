@@ -29,9 +29,8 @@ composer require magento-hackaton/magento2-improved-template-hints:dev-master
 
 Original Hackathon Issue Discussion: [magento-hackathon/pre-imagine-2016/issues/31](https://github.com/magento-hackathon/pre-imagine-2016/issues/31)
 
-Installation Instructions with Composer
----------------------------------------------
+## Usage
 
-
+To show the template hints simply add ?ath=1 to the shop URL after installing this module. 
         
         

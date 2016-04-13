@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+
+        <section id="dev" translate="label">
+            <group id="improved_template_hints" translate="label" type="text" sortOrder="8" showInDefault="1"
+                   showInWebsite="1" showInStore="1">
+                <label>Improved Template Hints</label>
+                <field id="enabled" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+
+                    <label>Enabled</label>
+                    <comment>Enables the improved template hints usage with the get parameter(?ath=1)</comment>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+
+            </group>
+        </section>
+    </system>
+</config>
