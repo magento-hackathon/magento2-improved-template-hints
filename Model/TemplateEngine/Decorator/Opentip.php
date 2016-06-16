@@ -38,11 +38,12 @@ class Opentip extends \MagentoHackathon\ImprovedTemplateHints\Model\TemplateEngi
         \Magento\Framework\View\TemplateEngineInterface $subject,
         \Magento\Framework\App\Config\ScopeConfigInterface $scopeConfig,
         \MagentoHackathon\ImprovedTemplateHints\Helper\ClassInfo $classInfoHelper,
+        \MagentoHackathon\ImprovedTemplateHints\Model\Scanner\PluginFinder $pluginFinder,
         $showBlockHints)
     {
         $this->_subject = $subject;
         $this->_showBlockHints = $showBlockHints;
-        parent::__construct($storeManager, $subject, $scopeConfig, $classInfoHelper, $showBlockHints);
+        parent::__construct($storeManager, $subject, $scopeConfig, $classInfoHelper, $pluginFinder, $showBlockHints);
     }
 
     public function render(\Magento\Framework\View\Element\BlockInterface $block, $templateFile, array $dictionary = [])

@@ -33,4 +33,12 @@ Original Hackathon Issue Discussion: [magento-hackathon/pre-imagine-2016/issues/
 
 To show the template hints simply add ?ath=1 to the shop URL after installing this module. 
         
+### Block Colors:
+[GREEN] Block is cached -> Magento2 Default Behaviour
+
+[RED] Block is not cached and the whole Page is not cached
+
+[ORANGE] Private Block: Block will be retrieved trough AJAX
+
+[BLUE] Shared Block: Block will be retrieved trough ESI
         

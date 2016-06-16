@@ -1,8 +1,9 @@
 .tpl-hint-border { outline: 1px dotted white; margin: 2px; padding: 2px; overflow: hidden; }
 
-.notcached { outline-color: red; }
-.cached { outline-color: green; }
-.implicitlycached { outline-color: orange; }
+.blockcache-notcached { outline-color: red; }
+.blockcache-cached { outline-color: green; }
+.blockcache-esi { outline-color: blue; }
+.blockcache-ajax { outline-color: orange; }
 
 .tpl-hint-infobox { width: 500px; background-color: white; outline: 1px solid black; z-index: 1000; position: absolute; }
 

@@ -7,8 +7,10 @@ use Magento\Store\Model\ScopeInterface;
 
 class AbstractDecorator extends \Magento\Developer\Model\TemplateEngine\Decorator\DebugHints
 {
-    const TYPE_CACHED = 'cached';
-    const TYPE_NOTCACHED = 'notcached';
+    const TYPE_CACHED = 'blockcache-cached';
+    const TYPE_ESI = 'blockcache-esi';
+    const TYPE_AJAX = 'blockcache-ajax';
+    const TYPE_NOTCACHED = 'blockcache-notcached';
     const TYPE_IMPLICITLYCACHED = 'implicitlycached';
 
     const XML_PATH_REMOTE_CALL_URL_TEMPLATE = 'dev/improved_template_hints/remote_call_url_template';
@@ -33,20 +35,40 @@ class AbstractDecorator extends \Magento\Developer\Model\TemplateEngine\Decorato
      * @var \MagentoHackathon\ImprovedTemplateHints\Helper\ClassInfo
      */
     protected $classInfoHelper;
+    /**
+     * @var \MagentoHackathon\ImprovedTemplateHints\Model\Scanner\PluginFinder
+     */
+    private $pluginFinder;
 
     public function __construct(
         \Magento\Store\Model\StoreManagerInterface $storeManager,
         \Magento\Framework\View\TemplateEngineInterface $subject,
         \Magento\Framework\App\Config\ScopeConfigInterface $scopeConfig,
         \MagentoHackathon\ImprovedTemplateHints\Helper\ClassInfo $classInfoHelper,
+        \MagentoHackathon\ImprovedTemplateHints\Model\Scanner\PluginFinder $pluginFinder,
         $showBlockHints
     ) {
         $this->storeManager = $storeManager;
         $this->scopeConfig = $scopeConfig;
         $this->classInfoHelper = $classInfoHelper;
+        $this->pluginFinder = $pluginFinder;
         parent::__construct($subject, $showBlockHints);
+
     }
 
+    public function printClassName($className){
+        if ($this->getRemoteCallEnabled()) {
+            $fileAndLine = $this->classInfoHelper->findFileAndLine($className);
+            if ($fileAndLine) {
+                $url = sprintf($this->getRemoteCallUrlTemplate(), $fileAndLine['file'], $fileAndLine['line']);
+                $className = sprintf($this->getRemoteCallLinkTemplate(),
+                    $url,
+                    $className
+                );
+            }
+        }
+        return $className;
+    }
     /**
      * Get block information
      *
@@ -64,20 +86,28 @@ class AbstractDecorator extends \Magento\Developer\Model\TemplateEngine\Decorato
             return $info;
         }
 
-        $info['class'] = get_class($block);
-
-        if ($this->getRemoteCallEnabled()) {
-            $fileAndLine = $this->classInfoHelper->findFileAndLine($info['class']);
-            if ($fileAndLine) {
-                $url = sprintf($this->getRemoteCallUrlTemplate(), $fileAndLine['file'], $fileAndLine['line']);
-                $info['class'] = sprintf($this->getRemoteCallLinkTemplate(),
-                    $url,
-                    $info['class']
-                );
+        if($block instanceof \Magento\Framework\Interception\InterceptorInterface){
+            $parentClass = (new \ReflectionClass($block))->getParentClass();
+            $info['class'] = $parentClass->getName();
+            $interCeptors = $this->pluginFinder->getPluginsForClass($info['class']);
+            foreach($interCeptors as $interCeptor){
+                // TODO: Make the Remote Call go to the right Line of Code
+                $interceptorClassName = $this->printClassName($interCeptor['plugin']);
+                $info["interceptors"][$interceptorClassName] = $interCeptor['methods'];
             }
+
+
+
+        }else{
+            $info['class'] = get_class($block);
         }
 
+
+        $info['class'] = $this->printClassName($info['class']);
+
+        // TODO : Get the Module Name for Magento/Framework.
         $info['module'] = $block->getModuleName();
+
 
         if ($block instanceof \Magento\Cms\Block\Block) {
             $info['cms-blockId'] = $block->getBlockId();
@@ -100,7 +130,7 @@ class AbstractDecorator extends \Magento\Developer\Model\TemplateEngine\Decorato
         }
 
         // cache information
-        $info['cache-status'] = self::TYPE_NOTCACHED;
+        $info['cache-status'] = self::TYPE_CACHED;
 
         $cacheLifeTime = $block->getCacheLifetime();
         if (!is_null($cacheLifeTime)) {
@@ -113,16 +143,36 @@ class AbstractDecorator extends \Magento\Developer\Model\TemplateEngine\Decorato
             ;
             $info['tags'] = implode(',', $block->getCacheTags());
 
-            $info['cache-status'] = self::TYPE_CACHED;
+            //$info['cache-status'] = self::TYPE_CACHED;
         } elseif ($this->isWithinCachedBlock($block)) {
             $info['cache-status'] = self::TYPE_IMPLICITLYCACHED; // not cached, but within cached
         }
+        if($block->getData('ttl')){
+            $info['cache-status'] = self::TYPE_ESI;
+            $info['cache-key-info'] = "TTL: ".$block->getData('ttl');
+        }
+
+        if($block->isScopePrivate()==true){
+            $info['cache-status'] = self::TYPE_AJAX;
+        }
+
+        // TODO: Check which block exactly has the "isCacheable" Attribute. Will return false if any Block has the isCacheable Attribute set
+        if($block->getLayout()->isCacheable()==false){
+            $info['cache-status'] = self::TYPE_NOTCACHED;
+        }
+
 
         $info['methods'] = $this->getClassMethods(get_class($block));
 
         return $info;
     }
 
+    /**
+     * @param $block \Magento\Framework\View\Element\AbstractBlock
+     */
+    public function checkBlockCacheAble($block){
+
+    }
 
 
     /**
