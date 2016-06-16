@@ -34,9 +34,9 @@ class GetParameterObserver implements ObserverInterface
     {
         if ($this->_helper->shouldShowTemplatePathHints()) {
 
-            $this->_mutableConfig->setValue(\MagePsycho\Easypathhints\Helper\Data::XML_PATH_DEV_DEBUG_TEMPLATE_HINTS_STOREFRONT, 1, \Magento\Store\Model\ScopeInterface::SCOPE_STORE);
-            $this->_mutableConfig->setValue(\MagePsycho\Easypathhints\Helper\Data::XML_PATH_DEV_DEBUG_TEMPLATE_HINTS_ADMIN, 1, \Magento\Store\Model\ScopeInterface::SCOPE_STORE);
-            $this->_mutableConfig->setValue(\MagePsycho\Easypathhints\Helper\Data::XML_PATH_DEV_DEBUG_TEMPLATE_HINTS_BLOCKS, 1, \Magento\Store\Model\ScopeInterface::SCOPE_STORE);
+            $this->_mutableConfig->setValue(\MagentoHackathon\ImprovedTemplateHints\Helper\Data::XML_PATH_DEBUG_TEMPLATE_FRONT, 1, \Magento\Store\Model\ScopeInterface::SCOPE_STORE);
+            $this->_mutableConfig->setValue(\MagentoHackathon\ImprovedTemplateHints\Helper\Data::XML_PATH_DEBUG_TEMPLATE_ADMIN, 1, \Magento\Store\Model\ScopeInterface::SCOPE_STORE);
+            $this->_mutableConfig->setValue(\MagentoHackathon\ImprovedTemplateHints\Helper\Data::XML_PATH_DEBUG_BLOCKS, 1, \Magento\Store\Model\ScopeInterface::SCOPE_STORE);
 
 
         }

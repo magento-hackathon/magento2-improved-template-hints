@@ -11,8 +11,8 @@ class AbstractDecorator extends \Magento\Developer\Model\TemplateEngine\Decorato
     const TYPE_NOTCACHED = 'notcached';
     const TYPE_IMPLICITLYCACHED = 'implicitlycached';
 
-    const XML_PATH_REMOTE_CALL_URL_TEMPLATE = 'dev/magentohackathon_improvedtemplatehints/remote_call_url_template';
-    const XML_PATH_ENABLE_PHPSTORM_REMOTE_CALL = 'dev/magentohackathon_improvedtemplatehints/enable_phpstorm_remote_call';
+    const XML_PATH_REMOTE_CALL_URL_TEMPLATE = 'dev/improved_template_hints/remote_call_url_template';
+    const XML_PATH_ENABLE_PHPSTORM_REMOTE_CALL = 'dev/improved_template_hints/enable_phpstorm_remote_call';
 
 
     protected $classMethodCache = array();
@@ -90,11 +90,11 @@ class AbstractDecorator extends \Magento\Developer\Model\TemplateEngine\Decorato
             $info['template'] = $templateFile;
 
             if ($this->getRemoteCallEnabled()) {
-//                $url = sprintf($this->getRemoteCallUrlTemplate(), Mage::getBaseDir('design') . DIRECTORY_SEPARATOR . $templateFile, 0);
-//                $info['template'] = sprintf($this->getRemoteCallLinkTemplate(),
-//                    $url,
-//                    $templateFile
-//                );
+               $url = sprintf($this->getRemoteCallUrlTemplate(), $templateFile, 0);
+                $info['template'] = sprintf($this->getRemoteCallLinkTemplate(),
+                   $url,
+                   $templateFile
+               );
             }
 
         }

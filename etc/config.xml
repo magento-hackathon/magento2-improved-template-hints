@@ -5,7 +5,11 @@
         <dev>
             <improved_template_hints>
                 <enabled>1</enabled>
+                <enable_phpstorm_remote_call>1</enable_phpstorm_remote_call>
+                <remote_call_url_template><![CDATA[http://localhost:8091/?message=%s:%s]]></remote_call_url_template>
             </improved_template_hints>
+
+
         </dev>
     </default>
 </config>

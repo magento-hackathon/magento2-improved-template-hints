@@ -6,8 +6,23 @@ define([
     return function(config, node) {
         node = $(node);
 
+        //console.log('loaded!');
         var id = node.attr('id');
-        new Opentip(node);
+        node.on('mouseover', function(event) {
+            event.preventDefault();
+            
+            new Opentip(
+                this,
+                $("#"+id + '-infobox').html(),
+                $("#"+id + '-title').html(),
+                {
+                    //style: 'slick',
+                    hideOn: 'click',
+                    fixed: true,
+                    group: 'ath'
+                }
+            );
+        });
         //node.on('mouseover', function (event) {
         //    event.preventDefault();
         //
@@ -26,3 +41,38 @@ define([
         //});
     }
 });
+/*
+define([
+    "MagentoHackathon_ImprovedTemplateHints/js/opentip-jquery.min",
+    "jquery",
+    "underscore"
+], function(opentip, $, _) {
+
+    return function(config, node) {
+        console.log("Test");
+
+
+
+
+    }
+
+});
+
+$(".tpl-hint").each(function(node) {
+    var id = node.getAttribute('id');
+    node.observe('mouseover', function(event) {
+        event.preventDefault();
+        new Opentip(
+            this,
+            $(id + '-infobox').innerHTML,
+            $(id + '-title').innerHTML,
+            {
+                style: 'slick',
+                hideOn: 'click',
+                fixed: true,
+                group: 'ath'
+            }
+        );
+    });
+});
+    */
