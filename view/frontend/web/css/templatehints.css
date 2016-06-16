@@ -13,7 +13,7 @@
 .implicitlycached:hover { box-shadow: 0 0 3px 3px orange; }
 
 .ot-container { width: 500px; }
-.opentip { color:black; font-family: sans-serif }
+.opentip-container .opentip { color:black; font-family: sans-serif }
 .opentip .header { margin: 0; padding: 0; position: inherit; text-align: left; width: auto; z-index: auto; background: none; height: auto; }
 .opentip .content { text-align: left; }
 .opentip dt { font-weight: bold; }

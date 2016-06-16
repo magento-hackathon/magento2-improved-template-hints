@@ -17,10 +17,16 @@ class ClassInfo extends \Magento\Framework\App\Helper\AbstractHelper {
         //die($this->getFileFromClassName($className));
         if ($fullPath) {
             $result = array('file' => $fullPath, 'line' => 0);
+            $reflector = new \ReflectionClass($className);
+            $className =  $reflector->getShortName();
+
+
+
             $lineNumber = $this->getLineNumber($fullPath, '/class\s+'.$className.'/');
             if ($lineNumber) {
                 $result['line'] = $lineNumber;
             }
+
         }
         return $result;
     }
@@ -61,7 +67,11 @@ class ClassInfo extends \Magento\Framework\App\Helper\AbstractHelper {
      * @return bool|string
      */
     public function searchFullPath($filename) {
-        return file_exists($filename);
+        if(file_exists($filename)){
+            return $filename;
+        }else{
+            return false;
+        }
     }
 
 
@@ -76,5 +86,6 @@ class ClassInfo extends \Magento\Framework\App\Helper\AbstractHelper {
         $reflector = new \ReflectionClass($className);
         return $reflector->getFileName();
     }
+
 
 }
