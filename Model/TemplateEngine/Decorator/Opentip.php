@@ -2,6 +2,8 @@
 
 namespace MagentoHackathon\ImprovedTemplateHints\Model\TemplateEngine\Decorator;
 
+use Magento\Framework\View\Element\AbstractBlock;
+
 class Opentip extends \MagentoHackathon\ImprovedTemplateHints\Model\TemplateEngine\Decorator\AbstractDecorator
 {
     /**
@@ -50,6 +52,10 @@ class Opentip extends \MagentoHackathon\ImprovedTemplateHints\Model\TemplateEngi
     {
         $result = $this->_subject->render($block, $templateFile, $dictionary);
 
+        if(!$block instanceof AbstractBlock){
+            // TODO: Handling of "Magento UI" Components
+            return "";
+        }
         $path = $this->getBlockPath($block);
         $blockInfo = $this->getBlockInfo($block);
 
