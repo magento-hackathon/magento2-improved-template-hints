@@ -8,7 +8,7 @@ define([
 
         //console.log('loaded!');
         var id = node.attr('id');
-        node.on('mouseover', function(event) {
+        node.on('mouseenter', function(event) {
             event.preventDefault();
 
             new Opentip(
