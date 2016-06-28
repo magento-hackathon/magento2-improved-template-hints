@@ -2,6 +2,8 @@
 
 namespace MagentoHackathon\ImprovedTemplateHints\Model\TemplateEngine\Decorator;
 
+use Magento\Framework\View\Element\AbstractBlock;
+
 class Opentip extends \MagentoHackathon\ImprovedTemplateHints\Model\TemplateEngine\Decorator\AbstractDecorator
 {
     /**
@@ -38,17 +40,22 @@ class Opentip extends \MagentoHackathon\ImprovedTemplateHints\Model\TemplateEngi
         \Magento\Framework\View\TemplateEngineInterface $subject,
         \Magento\Framework\App\Config\ScopeConfigInterface $scopeConfig,
         \MagentoHackathon\ImprovedTemplateHints\Helper\ClassInfo $classInfoHelper,
+        \MagentoHackathon\ImprovedTemplateHints\Model\Scanner\PluginFinder $pluginFinder,
         $showBlockHints)
     {
         $this->_subject = $subject;
         $this->_showBlockHints = $showBlockHints;
-        parent::__construct($storeManager, $subject, $scopeConfig, $classInfoHelper, $showBlockHints);
+        parent::__construct($storeManager, $subject, $scopeConfig, $classInfoHelper, $pluginFinder, $showBlockHints);
     }
 
     public function render(\Magento\Framework\View\Element\BlockInterface $block, $templateFile, array $dictionary = [])
     {
         $result = $this->_subject->render($block, $templateFile, $dictionary);
 
+        if(!$block instanceof AbstractBlock){
+            // TODO: Handling of "Magento UI" Components
+            return "";
+        }
         $path = $this->getBlockPath($block);
         $blockInfo = $this->getBlockInfo($block);
 
@@ -62,16 +69,23 @@ class Opentip extends \MagentoHackathon\ImprovedTemplateHints\Model\TemplateEngi
         }
 
         $this->_hintId++;
-        $wrappedHtml .= sprintf(
-            '<div id="tpl-hint-%1$s" class="%2$s" data-mage-init=\'{"templateHints": {}}\' data-ot="%5$s" data-ot-title="%4$s">
+
+
+        $wrappedHtml = sprintf(
+            '<div id="tpl-hint-%1$s" class="%2$s" data-mage-init=\'{"templateHints": {
+    }}\'>
                 %3$s
+                <div id="tpl-hint-%1$s-title" style="display: none;">%4$s</div>
+                <div id="tpl-hint-%1$s-infobox" style="display: none;">%5$s</div>
             </div>',
             $this->_hintId,
             $this->getHintClass() . ' ' . $blockInfo['cache-status'],
             $result,
-            htmlentities($this->renderTitle($blockInfo)),
-            htmlentities($this->renderBox($blockInfo, $path))
+            $this->renderTitle($blockInfo),
+            $this->renderBox($blockInfo, $path)
         );
+
+
         return $wrappedHtml;
     }
 

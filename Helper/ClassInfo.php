@@ -14,12 +14,19 @@ class ClassInfo extends \Magento\Framework\App\Helper\AbstractHelper {
     public function findFileAndLine($className) {
         $result = false;
         $fullPath = $this->searchFullPath($this->getFileFromClassName($className));
+        //die($this->getFileFromClassName($className));
         if ($fullPath) {
             $result = array('file' => $fullPath, 'line' => 0);
+            $reflector = new \ReflectionClass($className);
+            $className =  $reflector->getShortName();
+
+
+
             $lineNumber = $this->getLineNumber($fullPath, '/class\s+'.$className.'/');
             if ($lineNumber) {
                 $result['line'] = $lineNumber;
             }
+
         }
         return $result;
     }
@@ -60,14 +67,11 @@ class ClassInfo extends \Magento\Framework\App\Helper\AbstractHelper {
      * @return bool|string
      */
     public function searchFullPath($filename) {
-        $paths = explode(PATH_SEPARATOR, get_include_path());
-        foreach ($paths as $path) {
-            $fullPath = $path . DIRECTORY_SEPARATOR . $filename;
-            if (file_exists($fullPath)) {
-                return $fullPath;
-            }
+        if(file_exists($filename)){
+            return $filename;
+        }else{
+            return false;
         }
-        return false;
     }
 
 
@@ -79,7 +83,9 @@ class ClassInfo extends \Magento\Framework\App\Helper\AbstractHelper {
      * @return string
      */
     public function getFileFromClassName($className) {
-        return str_replace(' ', DIRECTORY_SEPARATOR, ucwords(str_replace('_', ' ', $className))) . '.php';
+        $reflector = new \ReflectionClass($className);
+        return $reflector->getFileName();
     }
+
 
 }
